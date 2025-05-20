@@ -11,6 +11,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 currentPosition;
     private bool isMove;
     private float speed = 4f;
+    private Camera cam;
+
+    private void Awake()
+    {
+        cam = Camera.main;
+    }
 
     private void Update()
     {
@@ -42,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public Vector3 GetPositionMouse()
     {
-        Vector3 pos =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 pos =  cam.ScreenToWorldPoint(Input.mousePosition);
         pos.z = 0;
         return pos;
     }
@@ -62,9 +68,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Wall"))
+        if (collision.CompareTag("Wall"))
         {
             this.CheckWall(collision);
         }
